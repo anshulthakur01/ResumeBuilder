@@ -1,0 +1,352 @@
+<style>
+    :root {
+        --rb-success: #4ade80;
+        --rb-success-bg: #f0fdf4;
+        --rb-error: #ef4444;
+        --rb-error-bg: #fef2f2;
+        --rb-warning: #f59e0b;
+        --rb-warning-bg: #fffbeb;
+        --rb-info: #3b82f6;
+        --rb-info-bg: #eff6ff;
+        --rb-dark: #1e293b;
+        --rb-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        --rb-transition: all 0.3s ease;
+    }
+
+    .rb-container {
+        max-width: 900px;
+        width: 100%;
+        background: white;
+        border-radius: 20px;
+        box-shadow: var(--rb-shadow);
+        overflow: hidden;
+    }
+
+    .rb-header {
+        background: linear-gradient(135deg, #4361ee, #3a0ca3);
+        color: white;
+        padding: 30px 40px;
+        text-align: center;
+    }
+
+    .rb-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+    }
+
+    .rb-header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .rb-content {
+        padding: 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+
+    .rb-demo, .rb-code {
+        background: #f8fafc;
+        border-radius: 16px;
+        padding: 25px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .rb-panel-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: #0f172a;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .rb-panel-title i {
+        background: linear-gradient(135deg, #4361ee, #3a0ca3);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .rb-btn-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .rb-btn {
+        padding: 14px 20px;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--rb-transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .rb-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .rb-btn-success {
+        background: var(--rb-success);
+        color: white;
+    }
+
+    .rb-btn-error {
+        background: var(--rb-error);
+        color: white;
+    }
+
+    .rb-btn-warning {
+        background: var(--rb-warning);
+        color: white;
+    }
+
+    .rb-btn-info {
+        background: var(--rb-info);
+        color: white;
+    }
+
+    #rb-message-container {
+        position: fixed;
+        top: 30px;
+        right: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        max-width: 450px;
+        width: 100%;
+        z-index: 100000;
+    }
+
+    .rb-message {
+        padding: 18px 25px;
+        border-radius: 14px;
+        box-shadow: var(--rb-shadow);
+        display: flex;
+        align-items: flex-start;
+        animation: rb-slideIn 0.4s ease-out forwards;
+        position: relative;
+        overflow: hidden;
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    .rb-message::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 6px;
+    }
+
+    .rb-message.rb-success {
+        background: var(--rb-success-bg);
+        border-left: 4px solid var(--rb-success);
+    }
+
+    .rb-message.rb-error {
+        background: var(--rb-error-bg);
+        border-left: 4px solid var(--rb-error);
+    }
+
+    .rb-message.rb-warning {
+        background: var(--rb-warning-bg);
+        border-left: 4px solid var(--rb-warning);
+    }
+
+    .rb-message.rb-info {
+        background: var(--rb-info-bg);
+        border-left: 4px solid var(--rb-info);
+    }
+
+    .rb-message-icon {
+        font-size: 1.8rem;
+        margin-right: 15px;
+        min-width: 30px;
+    }
+
+    .rb-success .rb-message-icon {
+        color: var(--rb-success);
+    }
+
+    .rb-error .rb-message-icon {
+        color: var(--rb-error);
+    }
+
+    .rb-warning .rb-message-icon {
+        color: var(--rb-warning);
+    }
+
+    .rb-info .rb-message-icon {
+        color: var(--rb-info);
+    }
+
+    .rb-message-content {
+        flex: 1;
+    }
+
+    .rb-message-title {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+
+    .rb-message-text {
+        font-size: 0.95rem;
+        color: #475569;
+    }
+
+    .rb-close-btn {
+        background: transparent;
+        border: none;
+        color: #94a3b8;
+        font-size: 1.2rem;
+        cursor: pointer;
+        margin-left: 15px;
+        transition: var(--rb-transition);
+        padding: 5px;
+    }
+
+    .rb-close-btn:hover {
+        color: #64748b;
+        transform: scale(1.1);
+    }
+
+    .rb-code-block {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: monospace;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        overflow-x: auto;
+    }
+
+    .rb-code-block .comment {
+        color: #94a3b8;
+    }
+
+    .rb-code-block .function {
+        color: #60a5fa;
+    }
+
+    .rb-code-block .string {
+        color: #4ade80;
+    }
+
+    .rb-code-block .var {
+        color: #f87171;
+    }
+
+    .rb-django-usage {
+        margin-top: 25px;
+        padding-top: 25px;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    @keyframes rb-slideIn {
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes rb-fadeOut {
+        to {
+            opacity: 0;
+            max-height: 0;
+            padding: 0;
+            margin: 0;
+            transform: translateY(-20px);
+        }
+    }
+
+    .rb-message.rb-hide {
+        animation: rb-fadeOut 0.4s ease forwards;
+    }
+
+    @media (max-width: 768px) {
+        .rb-content {
+            grid-template-columns: 1fr;
+        }
+
+        #rb-message-container {
+            max-width: calc(100% - 40px);
+            left: 20px;
+            right: 20px;
+            top: 20px;
+        }
+    }
+</style>
+<div id="rb-message-container"></div>
+<script>
+    function showMessage(text, type) {
+        const container = document.getElementById('rb-message-container');
+        const message = document.createElement('div');
+        message.className = `rb-message rb-${type}`;
+
+        const iconMap = {
+            success: 'fa-check-circle',
+            error: 'fa-exclamation-circle',
+            warning: 'fa-exclamation-triangle',
+            info: 'fa-info-circle'
+        };
+
+        const titleMap = {
+            success: 'Success',
+            error: 'Error',
+            warning: 'Warning',
+            info: 'Information'
+        };
+
+        message.innerHTML = `
+            <div class="rb-message-icon">
+                <i class="fas ${iconMap[type]}"></i>
+            </div>
+            <div class="rb-message-content">
+                <div class="rb-message-title">${titleMap[type]}</div>
+                <div class="rb-message-text">${text}</div>
+            </div>
+            <button class="rb-close-btn" onclick="dismissMessage(this)">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+
+        container.appendChild(message);
+
+        setTimeout(() => {
+            dismissMessage(message.querySelector('.rb-close-btn'));
+        }, 5000);
+    }
+
+    function dismissMessage(element) {
+        const message = element.closest('.rb-message');
+        message.classList.add('rb-hide');
+        setTimeout(() => message.remove(), 400);
+    }
+</script>
+
+{% if messages %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            {% for message in messages %}
+                showMessage(`{{ message|escapejs }}`, '{{ message.tags|default:"info" }}');
+            {% endfor %}
+        });
+    </script>
+{% endif %}

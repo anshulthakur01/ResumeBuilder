@@ -1,0 +1,35 @@
+<header>
+    <div class="container">
+        <nav class="navbar">
+            <a href="/" class="logo">
+                <i class="fas fa-file-contract"></i>
+                Resume<span>Builder</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="#"><i class="fas fa-th-large"></i> Templates</a>
+                <a href="#"><i class="fas fa-star"></i> Features</a>
+                <a href="#"><i class="fas fa-file-alt"></i> Examples</a>
+                <a href="#"><i class="fas fa-blog"></i> Blog</a>
+            </div>
+
+            <div class="btn-group">
+                <a href="{% url "accounts:sign_in" %}" class="btn btn-primary">Get Started</a>
+            </div>
+
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <a href="#"><i class="fas fa-th-large"></i> Templates</a>
+        <a href="#"><i class="fas fa-star"></i> Features</a>
+        <a href="#"><i class="fas fa-file-alt"></i> Examples</a>
+        <a href="#"><i class="fas fa-blog"></i> Blog</a>
+        <a href="{% url "accounts:sign_in" %}"><i class="fas fa-rocket"></i> Get Started</a>
+    </div>
+    <div class="overlay"></div>
+</header>
